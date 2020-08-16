@@ -7,7 +7,8 @@
 #include "MyPlayerState.generated.h"
 
 /**
- * 
+ * UNFINISHED PLAYER STATE CLASS
+ * Keeps track on the ammount of lives the player has
  */
 UCLASS()
 class SPACEINVADERS_FDS_API AMyPlayerState : public APlayerState
@@ -20,6 +21,7 @@ public:
 	
 	virtual void BeginPlay() override;
 
+	/** Checks for collisions with the player ship*/
 	UFUNCTION()
 	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 

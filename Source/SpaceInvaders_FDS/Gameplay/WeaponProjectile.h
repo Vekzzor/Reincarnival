@@ -15,36 +15,29 @@ class SPACEINVADERS_FDS_API AWeaponProjectile : public AActor
 	GENERATED_BODY()
 	
 public:	
-	// Sets default values for this actor's properties
 	AWeaponProjectile();
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	/**Checks for collisions with projectile*/
-	UFUNCTION()
-	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
-
-	/**Checks for collisions with projectile*/
+	/** Checks for collisions with projectile*/
 	UFUNCTION()
 	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
-	// Function that initializes the projectile's velocity in the shoot direction.
+	/** initializes the projectile's velocity in the shoot direction*/
+	UFUNCTION()
 	void FireInDirection(const FVector& ShootDirection);
 
-	// Sphere collision component.
+	/** Box collision component*/
 	UPROPERTY(VisibleDefaultsOnly, Category = Projectile)
 	UBoxComponent* CollisionComponent;
 
 	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
 	class UStaticMeshComponent* ProjectileMesh;
 
-	// Projectile movement component.
 	UPROPERTY(VisibleAnywhere, Category = Movement)
 	UProjectileMovementComponent* ProjectileMovementComponent;
 };

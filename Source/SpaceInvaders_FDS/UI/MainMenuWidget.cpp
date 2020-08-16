@@ -12,8 +12,10 @@ UMainMenuWidget::UMainMenuWidget(const FObjectInitializer& ObjectInitializer) : 
 bool UMainMenuWidget::Initialize()
 {
 	Super::Initialize();
+
 	if (!BTNStartGame->OnClicked.IsBound())
 		BTNStartGame->OnClicked.AddDynamic(this, &UMainMenuWidget::StartGame);
+
 	if (!BTNExitGame->OnClicked.IsBound())
 		BTNExitGame->OnClicked.AddDynamic(this, &UMainMenuWidget::ExitGame);
 

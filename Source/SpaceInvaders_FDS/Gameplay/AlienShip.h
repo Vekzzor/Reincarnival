@@ -15,19 +15,19 @@ class SPACEINVADERS_FDS_API AAlienShip : public APawn
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this pawn's properties
 	AAlienShip();
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	/** Spawn and drop a bomb*/
+	UFUNCTION()
 	void DropBomb();
 
+	UFUNCTION()
 	void Strafe(float Value);
 
 	UFUNCTION()
@@ -42,32 +42,37 @@ public:
 	UFUNCTION()
 	void PlayAttackAnimation();
 
-	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UPROPERTY()
 	class UShipMovementComponent* ShipMovementComponent;
 
+	/** Default ship mesh*/
 	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
 	class UStaticMeshComponent* ShipMesh;
 
+	/** Mesh to use when attacking*/
 	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
 	class UStaticMeshComponent* ShipMesh2;
 
-	// Gun muzzle's offset from the camera location.
+	/** Gun muzzle's offset from the camera location */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	FVector MuzzleOffset;
 
-	// Projectile class to spawn.
+	/** Projectile class to spawn*/
 	UPROPERTY(EditAnywhere, Category = Projectile)
 	TSubclassOf<class AWeaponProjectile> ProjectileClass;
 
 	// Box collision component.
 	UPROPERTY(VisibleDefaultsOnly, Category = Collision)
 	UBoxComponent* CollisionComponent;
-
+	
+	/** Duration to stay in the attack animation*/
 	UPROPERTY()
-	FTimerHandle AnimationTimer;
+	float AttackAnimationDuration = 0.5f;
 
+	/** Attack animation timer handle*/
 	UPROPERTY()
-	float AnimationDuration = 0.5f;
+	FTimerHandle AttackAnimationTimer;
+
 };

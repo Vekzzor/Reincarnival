@@ -24,7 +24,7 @@ public:
 	void AddGameOverWidget(float Score);
 
 	UPROPERTY(EditDefaultsOnly, Category = "Widgets")
-	TSubclassOf<UUserWidget> LifeWidgetClass;
+	TSubclassOf<UUserWidget> LifeWidgetClass; //TODO
 
 	UPROPERTY(EditDefaultsOnly, Category = "Widgets")
 	TSubclassOf<UUserWidget> GameOverWidgetClass;

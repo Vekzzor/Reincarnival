@@ -6,19 +6,19 @@
 #include "UObject/ConstructorHelpers.h"
 #include "GameFramework/PlayerState.h"
 #include "UI/PlayerHUD.h"
-// Sets default values
+
 AShip::AShip()
 {
 	Tags.Add("PlayerShip");
- 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+
 	PrimaryActorTick.bCanEverTick = false;
 
 	CollisionComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxComponent"));
-	// Set the box's extent.
+	// Set the box's extent
 	CollisionComponent->InitBoxExtent(FVector(12.0f, 38.0f, 3.0f));
 	CollisionComponent->BodyInstance.SetCollisionProfileName("Pawn");
 	CollisionComponent->OnComponentBeginOverlap.AddDynamic(this, &AShip::OnOverlapBegin);
-	// Set the root component to be the collision component.
+	// Set the root component to be the collision component
 	RootComponent = CollisionComponent;
 	
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> MeshAsset(TEXT("/Game/Models/3D_Icons/Ship.Ship"));
@@ -33,7 +33,7 @@ AShip::AShip()
 	static ConstructorHelpers::FObjectFinder<UClass> ProjectileAsset(TEXT("/Game/Blueprints/BP_Rocket.BP_Rocket_C"));
 	ProjectileClass = ProjectileAsset.Object;
 
-	// Create an instance of our movement component, and tell it to update the root.
+	// Create an instance of our movement component, and tell it to update the root
 	ShipMovementComponent = CreateDefaultSubobject<UShipMovementComponent>(TEXT("ShipMovementComponent"));
 	ShipMovementComponent->UpdatedComponent = RootComponent;
 
@@ -42,13 +42,11 @@ AShip::AShip()
 }
 
 
-// Called when the game starts or when spawned
 void AShip::BeginPlay()
 {
 	Super::BeginPlay();	
 }
 
-// Called every frame
 void AShip::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -61,7 +59,7 @@ void AShip::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherA
 		if (OtherActor->Instigator->ActorHasTag("PlayerShip"))
 		{
 		}
-		else if (OtherActor->Instigator->ActorHasTag("AlienShip"))
+		else if (OtherActor->Instigator->ActorHasTag("AlienShip") && !ShipDestroyed)
 		{
 			if (Controller->IsPlayerController())
 			{
@@ -71,6 +69,7 @@ void AShip::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherA
 				if (HUD && State)
 				{
 					//Player hit, game over
+					ShipDestroyed = true;
 					HUD->AddGameOverWidget(State->Score);
 				}
 			}
@@ -80,10 +79,10 @@ void AShip::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherA
 
 void AShip::FireRocket()
 {
-	// Attempt to fire a projectile.
-	if (ProjectileClass && canFire)
+	// Attempt to fire a projectile
+	if (ProjectileClass && CanFire)
 	{
-		// Transform MuzzleOffset to world space.
+		// Transform MuzzleOffset to world space
 		FVector MuzzleLocation = GetActorLocation() + FTransform(GetActorRotation()).TransformVector(MuzzleOffset);
 		FRotator MuzzleRotation = GetActorRotation();
 		UWorld* World = GetWorld();
@@ -92,14 +91,14 @@ void AShip::FireRocket()
 			FActorSpawnParameters SpawnParams;
 			SpawnParams.Owner = this;
 			SpawnParams.Instigator = this;
-			// Spawn the projectile at the muzzle.
+			// Spawn the projectile at the muzzle
 			AWeaponProjectile* Projectile = World->SpawnActor<AWeaponProjectile>(ProjectileClass, MuzzleLocation, MuzzleRotation, SpawnParams);
 			if (Projectile)
 			{
-				// Set the projectile's initial trajectory.
+				// Set the projectile's initial trajectory
 				FVector LaunchDirection = MuzzleRotation.Vector();
 				Projectile->FireInDirection(LaunchDirection);
-				canFire = false;
+				CanFire = false;
 				GetWorldTimerManager().SetTimer(AttackTimer, this, &AShip::AllowFiring, AttackDelay, false);
 			}
 		}
@@ -117,7 +116,7 @@ void AShip::Strafe(float Value)
 
 void AShip::AllowFiring()
 {
-	canFire = true;
+	CanFire = true;
 }
 
 // Called to bind functionality to input

@@ -9,7 +9,8 @@
 #include "GameOverWidget.generated.h"
 
 /**
- * 
+ * Game over screen
+ * Shows the amount of aliens killed
  */
 UCLASS()
 class SPACEINVADERS_FDS_API UGameOverWidget : public UUserWidget

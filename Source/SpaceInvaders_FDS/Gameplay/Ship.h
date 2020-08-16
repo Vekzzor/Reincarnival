@@ -14,29 +14,29 @@ class SPACEINVADERS_FDS_API AShip : public APawn
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this pawn's properties
 	AShip();
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	
+	/** Spawn and shoot a rocket*/
 	UFUNCTION()
 	void FireRocket();
+
 	UFUNCTION()
 	void Strafe(float Value);
 
+	/** Lets the ship fire again*/
 	UFUNCTION()
 	void AllowFiring();
 
+	/** Checks for collisions with ship*/
 	UFUNCTION()
 	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
-	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	UPROPERTY()
@@ -48,26 +48,28 @@ public:
 	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
 	class UStaticMeshComponent* ShipMesh;
 
-	// Gun muzzle's offset from the camera location.
+	/** Gun muzzle's offset from the camera location*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	FVector MuzzleOffset;
 
-	// Projectile class to spawn.
+	/** Projectile class to spawn*/
 	UPROPERTY(EditAnywhere, Category = Projectile)
 	TSubclassOf<class AWeaponProjectile> ProjectileClass;
 
-	// Box collision component.
+	/** Box collision component*/
 	UPROPERTY(VisibleDefaultsOnly, Category = Collision)
 	UBoxComponent* CollisionComponent;
 
-
+	/** Delay between attacks*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	float AttackDelay = 1;
 
 private:
+	/** Attack timer handle*/
 	UPROPERTY()
 	FTimerHandle AttackTimer;
 
-	UPROPERTY()
-	bool canFire = true;
+	bool CanFire = true;
+
+	bool ShipDestroyed = false;
 };

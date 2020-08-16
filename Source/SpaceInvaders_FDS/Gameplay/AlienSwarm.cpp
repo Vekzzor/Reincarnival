@@ -4,20 +4,18 @@
 #include "AlienSwarm.h"
 #include "Controllers/AlienController.h"
 #include "UObject/ConstructorHelpers.h"
-// Sets default values
+
 AAlienSwarm::AAlienSwarm()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
 	AlienControllerClass = AAlienController::StaticClass();
-	// Create an instance of our movement component, and tell it to update the root.
+	// Create an instance of our movement component, and tell it to update the root
 	MovementComponent = CreateDefaultSubobject<UShipMovementComponent>(TEXT("MovementComponent"));
 	MovementComponent->UpdatedComponent = RootComponent;
 }
 
-// Called when the game starts or when spawned
 void AAlienSwarm::BeginPlay()
 {
 	Super::BeginPlay();
@@ -25,13 +23,11 @@ void AAlienSwarm::BeginPlay()
 	SpawnWaves();
 }
 
-// Called every frame
 void AAlienSwarm::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	// add movement in that direction
 	AddMovementInput(GetActorRightVector(), Direction*VelocityScale);
-
 }
 
 void AAlienSwarm::SpawnWaves()
@@ -46,6 +42,7 @@ void AAlienSwarm::SpawnWaves()
 			FVector SpawnLoc = FVector(0.0f + K * 100.0f, 0.0f + I * 80.0f, 0.0f);
 			AAlienShip* ship = nullptr;
 			AAlienController* AlienController = nullptr;
+			//Check if the swarm have ships that can be re-used
 			if (PooledShips <= 0)
 			{
 				//Pool emptied so we spawn more ships
@@ -58,6 +55,7 @@ void AAlienSwarm::SpawnWaves()
 			}
 			else
 			{
+				//Grab one of the attached ships
 				ship = Cast<AAlienShip>(Actors[PooledShips-1]);
 				AlienController = Cast<AAlienController>(ship->Controller);
 				ship->SetActorHiddenInGame(false);

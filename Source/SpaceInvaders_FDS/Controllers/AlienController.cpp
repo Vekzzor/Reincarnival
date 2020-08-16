@@ -6,7 +6,8 @@
 #include "Engine/Engine.h"
 #include "DrawDebugHelpers.h"
 #include "../Gameplay/Ship.h"
-AAlienController::AAlienController(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
+
+AAlienController::AAlienController()
 {
 	PrimaryActorTick.bCanEverTick = false;
 }
@@ -21,7 +22,6 @@ void AAlienController::OnPossess(APawn * InPawn)
 	}
 }
 
-// Called every frame
 void AAlienController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -31,7 +31,6 @@ void AAlienController::OnUnPossess()
 {
 	Super::OnUnPossess();
 	Ship = nullptr;
-	// Ensure the timer is cleared by using the timer handle
 	GetWorld()->GetTimerManager().ClearTimer(AttackTimer);
 }
 
@@ -44,10 +43,6 @@ void AAlienController::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AAct
 			GetWorld()->GetTimerManager().ClearTimer(AttackTimer);
 			Ship->ResetAnimation();
 			Swarm->NotifyShipDestruction();
-		}
-		else if (OtherActor->Instigator->ActorHasTag("AlienShip"))
-		{
-
 		}
 	}
 	else

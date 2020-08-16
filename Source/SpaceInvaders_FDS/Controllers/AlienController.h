@@ -16,9 +16,8 @@ class SPACEINVADERS_FDS_API AAlienController : public AController
 	GENERATED_BODY()
 
 public:
-	AAlienController(const FObjectInitializer& ObjectInitializer);
+	AAlienController();
 
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	
 	UFUNCTION()
@@ -27,9 +26,11 @@ public:
 	UFUNCTION()
 	virtual void OnUnPossess() override;
 
+	/** Checks for collisions with the possessed alien ship*/
 	UFUNCTION()
 	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
+	/** Check for no friendly fire and drops a bomb*/
 	UFUNCTION()
 	void TryAttack();
 
@@ -41,11 +42,13 @@ public:
 	UPROPERTY()
 	class AAlienSwarm* Swarm = nullptr;
 
+	/** Minimum wait time to try and attack*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	float AttackDelayMin = 1;
+	/** Maximum wait time to try and attack*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	float AttackDelayMax = 5;
 private:
-
+	/** Attack delay timer handle*/
 	FTimerHandle AttackTimer;
 };

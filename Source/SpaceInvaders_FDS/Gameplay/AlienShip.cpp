@@ -7,23 +7,22 @@
 #include "UObject/UObjectGlobals.h"
 #include "UObject/ConstructorHelpers.h"
 #include "MyPlayerState.h"
-// Sets default values
+
 AAlienShip::AAlienShip()
 {
 	Tags.Add("AlienShip");
- 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
-	// Use a Box as a simple collision representation.
+	// Use a Box as a simple collision representation
 	CollisionComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxComponent"));
 
 	CollisionComponent->OnComponentBeginOverlap.AddDynamic(this, &AAlienShip::OnOverlapBegin);
-	// Set the box's extent.
+	// Set the box's extent
 	CollisionComponent->InitBoxExtent(FVector(24.0f, 33.0f, 3.0f));
 	CollisionComponent->SetRelativeRotation(FRotator(180.0f, 0.0f, 0.0f));
 
 	CollisionComponent->BodyInstance.SetCollisionProfileName("OverlapOnlyPawn");
 
-	// Set the root component to be the collision component.
+	// Set the root component to be the collision component
 	RootComponent = CollisionComponent;
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> MeshAsset1(TEXT("/Game/Models/3D_Icons/Alien2.Alien2"));
@@ -40,7 +39,7 @@ AAlienShip::AAlienShip()
 	ShipMesh2->SetupAttachment(RootComponent);
 	
 
-	// Create an instance of our movement component, and tell it to update the root.
+	// Create an instance of our movement component, and tell it to update the root
 	ShipMovementComponent = CreateDefaultSubobject<UShipMovementComponent>(TEXT("ShipMovementComponent"));
 	ShipMovementComponent->UpdatedComponent = RootComponent;
 	AIControllerClass = AAlienController::StaticClass();
@@ -52,13 +51,11 @@ AAlienShip::AAlienShip()
 	AutoPossessAI = EAutoPossessAI::Disabled;
 }
 
-// Called when the game starts or when spawned
 void AAlienShip::BeginPlay()
 {
 	Super::BeginPlay();
 }
 
-// Called every frame
 void AAlienShip::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -103,7 +100,7 @@ void AAlienShip::SwapMesh()
 
 void AAlienShip::ResetAnimation()
 {
-	GetWorld()->GetTimerManager().ClearTimer(AnimationTimer);
+	GetWorld()->GetTimerManager().ClearTimer(AttackAnimationTimer);
 	ShipMesh->SetVisibility(true);
 	ShipMesh2->SetVisibility(false);
 }
@@ -111,10 +108,9 @@ void AAlienShip::ResetAnimation()
 void AAlienShip::PlayAttackAnimation()
 {
 	SwapMesh();
-	GetWorldTimerManager().SetTimer(AnimationTimer, this, &AAlienShip::SwapMesh, AnimationDuration, false);
+	GetWorldTimerManager().SetTimer(AttackAnimationTimer, this, &AAlienShip::SwapMesh, AttackAnimationDuration, false);
 }
 
-// Called to bind functionality to input
 void AAlienShip::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
@@ -122,10 +118,10 @@ void AAlienShip::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 
 void AAlienShip::DropBomb()
 {
-	// Attempt to fire a projectile.
+	// Attempt to fire a projectile
 	if (ProjectileClass)
 	{
-		// Transform MuzzleOffset to world space.
+		// Transform MuzzleOffset to world space
 		FVector MuzzleLocation = GetActorLocation() + FTransform(GetActorRotation()).TransformVector(MuzzleOffset);
 		FRotator MuzzleRotation = GetActorRotation();
 		UWorld* World = GetWorld();
@@ -134,11 +130,11 @@ void AAlienShip::DropBomb()
 			FActorSpawnParameters SpawnParams;
 			SpawnParams.Owner = this;
 			SpawnParams.Instigator = this;
-			// Spawn the projectile at the muzzle.
+			// Spawn the projectile at the muzzle
 			AWeaponProjectile* Projectile = World->SpawnActor<AWeaponProjectile>(ProjectileClass, MuzzleLocation, MuzzleRotation, SpawnParams);
 			if (Projectile)
 			{
-				// Set the projectile's initial trajectory.
+				// Set the projectile's initial trajectory
 				FVector LaunchDirection = MuzzleRotation.Vector();
 				Projectile->FireInDirection(LaunchDirection);
 			}

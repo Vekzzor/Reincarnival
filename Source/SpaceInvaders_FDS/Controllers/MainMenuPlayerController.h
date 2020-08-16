@@ -7,7 +7,7 @@
 #include "MainMenuPlayerController.generated.h"
 
 /**
- * 
+ * Controller for when navigating the main menu
  */
 UCLASS()
 class SPACEINVADERS_FDS_API AMainMenuPlayerController : public APlayerController
