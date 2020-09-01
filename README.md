@@ -1,5 +1,5 @@
 # Reincarnival
-A personal side project where I make multiple mini-games, either original concepts or recreate old classic with potential twists. The project was inspired from a work test where I was tasked to create a space invaders game.
+A personal side project where I make multiple mini-games, either original concepts or recreate old classic with potential twists. The project was inspired from a work test where I was tasked to create a space invaders game with Unreal Engine 4.
 
 Started games:
 * a basic version of Space Invaders.
