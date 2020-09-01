@@ -9,7 +9,7 @@
 #include "Components/BoxComponent.h"
 #include "Ship.generated.h"
 UCLASS()
-class SPACEINVADERS_FDS_API AShip : public APawn
+class REINCARNIVAL_API AShip : public APawn
 {
 	GENERATED_BODY()
 

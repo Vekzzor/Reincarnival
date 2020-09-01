@@ -9,7 +9,7 @@
 
 
 UCLASS()
-class SPACEINVADERS_FDS_API AMainMenuHUD : public AHUD
+class REINCARNIVAL_API AMainMenuHUD : public AHUD
 {
 	GENERATED_BODY()
 public:

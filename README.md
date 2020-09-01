@@ -1,6 +1,10 @@
-# SpaceInvaders_FDS
-A code test for a job application. The objective was to create a space invaders game. 
+# Reincarnival
+A side project where I make multiple mini-games, either original concepts or recreate old classic with potential twists. The project was inspired from a work test where I was tasked to create a space invaders game.
 
-<img src="https://github.com/Vekzzor/SpaceInvaders_FDS/blob/master/SpaceInvadersSample.png" width="400">
+Started games:
+* a basic version of Space Invaders.
+
+Future Ideas:
+* Breakout game with a curved pad moving in a circular shape around with multiple curved bricks creating a circle in the center for the player to remove.
 
 Developed with Unreal Engine 4

@@ -8,7 +8,7 @@
 #include "AlienSwarm.generated.h"
 
 UCLASS()
-class SPACEINVADERS_FDS_API AAlienSwarm : public APawn
+class REINCARNIVAL_API AAlienSwarm : public APawn
 {
 	GENERATED_BODY()
 	

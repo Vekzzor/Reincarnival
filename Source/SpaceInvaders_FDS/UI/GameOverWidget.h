@@ -13,7 +13,7 @@
  * Shows the amount of aliens killed
  */
 UCLASS()
-class SPACEINVADERS_FDS_API UGameOverWidget : public UUserWidget
+class REINCARNIVAL_API UGameOverWidget : public UUserWidget
 {
 	GENERATED_BODY()
 public:

@@ -11,7 +11,7 @@
  * 
  */
 UCLASS(Blueprintable)
-class SPACEINVADERS_FDS_API AAlienController : public AController
+class REINCARNIVAL_API AAlienController : public AController
 {
 	GENERATED_BODY()
 

@@ -11,7 +11,7 @@
  * Keeps track on the ammount of lives the player has
  */
 UCLASS()
-class SPACEINVADERS_FDS_API AMyPlayerState : public APlayerState
+class REINCARNIVAL_API AMyPlayerState : public APlayerState
 {
 	GENERATED_BODY()
 	

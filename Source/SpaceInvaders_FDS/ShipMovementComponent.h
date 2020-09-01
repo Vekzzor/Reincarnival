@@ -10,7 +10,7 @@
  * 
  */
 UCLASS()
-class SPACEINVADERS_FDS_API UShipMovementComponent : public UPawnMovementComponent
+class REINCARNIVAL_API UShipMovementComponent : public UPawnMovementComponent
 {
 	GENERATED_BODY()
 	

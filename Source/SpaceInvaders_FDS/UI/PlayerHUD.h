@@ -11,7 +11,7 @@
  * 
  */
 UCLASS()
-class SPACEINVADERS_FDS_API APlayerHUD : public AHUD
+class REINCARNIVAL_API APlayerHUD : public AHUD
 {
 	GENERATED_BODY()
 	

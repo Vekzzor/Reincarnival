@@ -10,7 +10,7 @@
 #include "AlienShip.generated.h"
 
 UCLASS()
-class SPACEINVADERS_FDS_API AAlienShip : public APawn
+class REINCARNIVAL_API AAlienShip : public APawn
 {
 	GENERATED_BODY()
 

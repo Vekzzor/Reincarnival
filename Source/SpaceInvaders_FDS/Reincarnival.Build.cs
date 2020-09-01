@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class SpaceInvaders_FDS : ModuleRules
+public class Reincarnival : ModuleRules
 {
-	public SpaceInvaders_FDS(ReadOnlyTargetRules Target) : base(Target)
+	public Reincarnival(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	

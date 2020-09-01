@@ -63,8 +63,8 @@ void AShip::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherA
 		{
 			if (Controller->IsPlayerController())
 			{
-				APlayerHUD* HUD = Cast<APlayerHUD>(Cast<APlayerController>(Controller)->GetHUD());
-				APlayerState* State = Cast<APlayerState>(GetPlayerState());
+				APlayerHUD* HUD = Cast<APlayerHUD>(PlayerController->GetHUD());
+				APlayerState* State = GetPlayerState();
 
 				if (HUD && State)
 				{

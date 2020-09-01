@@ -10,7 +10,7 @@
 #include "WeaponProjectile.generated.h"
 
 UCLASS()
-class SPACEINVADERS_FDS_API AWeaponProjectile : public AActor
+class REINCARNIVAL_API AWeaponProjectile : public AActor
 {
 	GENERATED_BODY()
 	

@@ -9,7 +9,7 @@
 
 //TODO
 UCLASS()
-class SPACEINVADERS_FDS_API ULifeWidget : public UUserWidget
+class REINCARNIVAL_API ULifeWidget : public UUserWidget
 {
 	GENERATED_BODY()
 	

@@ -13,7 +13,7 @@
  * 
  */
 UCLASS()
-class SPACEINVADERS_FDS_API UMainMenuWidget : public UUserWidget
+class REINCARNIVAL_API UMainMenuWidget : public UUserWidget
 {
 	GENERATED_BODY()
 
